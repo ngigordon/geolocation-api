@@ -1,17 +1,17 @@
 let house = document.getElementById('container')
+// getting country automatically using the persons ip adress
 let http = new XMLHttpRequest()
 http.onreadystatechange = function(){
     if(this.readyState == 4){
         let data =JSON.parse(this.responseText)
        var code = data.countryCode
-       console.log(code)
        getCountryFullInfo(code)
     }
 }
 http.open('get','http://ip-api.com/json')
 http.send()
 
-// getting further information about the country
+// getting further information about the country using country code api from the info above
 function getCountryFullInfo(a){
     let secondRequest = new XMLHttpRequest()
     secondRequest.onreadystatechange = function(){
@@ -27,6 +27,7 @@ function getCountryFullInfo(a){
         <p>your country is located at latitude:<strong>${details.latlng[0]}</strong></p>
         <p>your country is located at longitude:<strong>${details.latlng[1]}</strong></p>
         `
+        //render everything to html DOM
         house.innerHTML = htmlTemplate
         }
 
